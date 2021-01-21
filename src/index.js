@@ -9,7 +9,7 @@ import {
   convertAttributeValue
 } from './utils.js'
 
-export default function wrap (Vue, Component) {
+export default function wrap (Vue, Component, options) {
   const isAsync = typeof Component === 'function' && !Component.cid
   let isInitialized = false
   let hyphenatedPropsList
@@ -81,7 +81,9 @@ export default function wrap (Vue, Component) {
   class CustomElement extends HTMLElement {
     constructor () {
       const self = super()
-      self.attachShadow({ mode: 'open' })
+      if (!options.isShadow) {
+        self.attachShadow({ mode: 'open' })
+      }
 
       const wrapper = self._wrapper = new Vue({
         name: 'shadow-root',
