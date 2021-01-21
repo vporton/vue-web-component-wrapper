@@ -81,7 +81,7 @@ export default function wrap (Vue, Component, options) {
   class CustomElement extends HTMLElement {
     constructor () {
       const self = super()
-      if (!options.isShadow) {
+      if (options.isShadow !== false) {
         self.attachShadow({ mode: 'open' })
       }
 
